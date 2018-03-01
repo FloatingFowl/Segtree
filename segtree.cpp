@@ -4,13 +4,23 @@
 #define _SEGMENTTREE_CPP_
 
 template <typename Base>
-SegmentTree<Base>::SegmentTree(std::vector<Base> const &init_values, std::function<Base(Base&, Base&)> bin_func)
+SegmentTree<Base>::SegmentTree(std::vector<Base> const &init_values, std::function<Base(Base&, Base&)> bin_func, bool type)
     : bin_func_(bin_func)
     , len_(init_values.size())
+    , type_(type)
 {
-    tree_.resize(GetTreeSize(len_));
-    BuildTreeRecursive(0, len_ - 1, init_values, 0);
-    //BuildTreeIterative(init_values);
+
+    if (type_ == true)
+    {
+        tree_.resize(GetTreeSize(len_));
+        BuildTreeRecursive(0, len_ - 1, init_values, 0);
+    }
+    else
+    {
+        tree_.resize(len_ * 2);
+        BuildTreeIterative(init_values);
+    }
+
     DebugPrint();
 }
 
@@ -155,8 +165,10 @@ Base SegmentTree<Base>::Query(std::size_t l_qbound, std::size_t r_qbound)
     {
         throw std::out_of_range("The left index must be smaller than the right index.");
     }
-    return QueryRecursive(l_qbound, r_qbound, 0, len_ - 1, 0);
-    //return QueryIterative(l_qbound, r_qbound);
+    if (type_ == true)
+        return QueryRecursive(l_qbound, r_qbound, 0, len_ - 1, 0);
+    else
+        return QueryIterative(l_qbound, r_qbound);
 }
 
 template <typename Base>
@@ -166,15 +178,16 @@ void SegmentTree<Base>::Update(Base const &new_value, std::size_t const &index)
     {
         throw std::out_of_range("The index must be within the range of the segment tree.");
     }
-    UpdateRecursive(new_value, index, 0, len_ - 1, 0);
-    //UpdateIterative(new_value, index);
+    if (type_ == true)
+        UpdateRecursive(new_value, index, 0, len_ - 1, 0);
+    else
+        UpdateIterative(new_value, index);
 }
 
 
 template <typename Base>
 size_t SegmentTree<Base>::GetTreeSize(size_t const &len)
 {
-    // Change if iterative
     return 2 * std::pow(2, std::ceil(std::log2(len))) - 1;
 }
 
