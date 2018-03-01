@@ -2,7 +2,7 @@
 
 ##### Things to be added:
 
-- `Init` Functions (size later)
+- ~~`Init` Functions (size later)~~
   - ~~`(vector of initial values of same type, function pointer or lambda)`~~
   - ~~`(initial value, function pointer or lambda)`~~
   - ~~Possible choice of iterative or recursive~~

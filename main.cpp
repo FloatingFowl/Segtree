@@ -1,5 +1,5 @@
 #include "segtree.h"
-#include<vector>
+#include <vector>
 
 using namespace std;
 

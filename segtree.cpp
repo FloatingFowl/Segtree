@@ -20,8 +20,6 @@ SegmentTree<Base>::SegmentTree(std::vector<Base> const &init_values, std::functi
         tree_.resize(len_ * 2);
         BuildTreeIterative(init_values);
     }
-
-    //DebugPrint();
 }
 
 
@@ -42,7 +40,6 @@ SegmentTree<Base>::SegmentTree(Base const &init_value, std::size_t const &len, s
         tree_.resize(len_ * 2);
         BuildTreeIterative(init_value);
     }
-    //DebugPrint();
 }
 
 
