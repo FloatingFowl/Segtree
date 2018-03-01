@@ -130,6 +130,21 @@ void SegmentTree<Base>::UpdateRecursive(Base const &new_value, std::size_t const
 
 
 template <typename Base>
+void SegmentTree<Base>::UpdateIterative(Base const &new_value, std::size_t const &index)
+{
+    std::size_t i = index + len_;
+    tree_[i] = new_value;
+    i >>= 1;
+
+    while (i > 0)
+    {
+        tree_[i] = bin_func_(tree_[i << 1], tree_[(i << 1) | 1]);
+        i >>= 1;
+    }
+}
+
+
+template <typename Base>
 Base SegmentTree<Base>::Query(std::size_t l_qbound, std::size_t r_qbound)
 {
     if (l_qbound < 0 || l_qbound >= len_ || r_qbound < 0 || r_qbound >= len_)
@@ -151,7 +166,8 @@ void SegmentTree<Base>::Update(Base const &new_value, std::size_t const &index)
     {
         throw std::out_of_range("The index must be within the range of the segment tree.");
     }
-    UpdateRecursive(new_value, index, 0, len_ - 1, 0);
+    //UpdateRecursive(new_value, index, 0, len_ - 1, 0);
+    UpdateIterative(new_value, index);
 }
 
 

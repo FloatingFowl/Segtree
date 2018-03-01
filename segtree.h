@@ -21,6 +21,7 @@ class SegmentTree {
         Base QueryRecursive(std::size_t l_qbound, std::size_t r_qbound, std::size_t l_index, std::size_t r_index, std::size_t tree_index);
         Base QueryIterative(std::size_t &l_qbound, std::size_t &r_qbound);
         void UpdateRecursive(Base const &new_value, std::size_t const &final_index, std::size_t l_index, std::size_t r_index, std::size_t tree_index);
+        void UpdateIterative(Base const &new_value, std::size_t const &index);
 
     public:
         SegmentTree(std::vector<Base> const &init_values, std::function<Base(Base&, Base&)> bin_func);
