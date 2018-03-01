@@ -11,7 +11,7 @@
 - ~~`update` function~~
 - ~~method to change function pointer or lambda~~
 - ~~`print` method for testing~~
-- Performance testing
+- Performance testing (Have to present data)
 
 -----
 
@@ -21,3 +21,4 @@
 - `segtree.cpp` - Members Functions definition of `SegmentTree` class
 - `main.cpp` - Basic testing during development
 - `Makefile` - Simple Makefile to use with `make`
+- `performance_testing.cpp` - Contains performance testing for all three types
