@@ -28,6 +28,7 @@ class SegmentTree {
         Base Query(std::size_t l_index, std::size_t r_index); 
         void Update(Base const &new_value, std::size_t const &index);
         static size_t GetTreeSize(size_t const &len);
+        void UpdateFunction(std::function<Base(Base&, Base&)> bin_func);
         void DebugPrint();
 
 };

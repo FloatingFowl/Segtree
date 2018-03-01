@@ -11,5 +11,8 @@ int main(){
     st.Update(5,1);
     st.DebugPrint();
     cout<<st.Query(0,3)<<'\n';
-    cout<<st.Query(0,4)<<'\n';
+    st.UpdateFunction([](int& fi, int &se){return fi * se;});
+    st.Update(5,0);
+    st.DebugPrint();
+    cout<<st.Query(0,3)<<'\n';
 }
