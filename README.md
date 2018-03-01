@@ -12,3 +12,12 @@
 - ~~method to change function pointer or lambda~~
 - ~~`print` method for testing~~
 - Performance testing
+
+-----
+
+##### Files:
+
+- `segtree.h` - Class declaration
+- `segtree.cpp` - Members Functions definition of `SegmentTree` class
+- `main.cpp` - Basic testing during development
+- `Makefile` - Simple Makefile to use with `make`
