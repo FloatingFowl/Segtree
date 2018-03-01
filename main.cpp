@@ -5,13 +5,13 @@ using namespace std;
 
 int main(){
     //For Testing Purposes
-    vector<int> temp = {1,2,3,4};
-    SegmentTree<int> st{temp, [](int& fi, int& se){return fi + se;}};
+    vector<int> temp = {0,1,2,3};
+    SegmentTree<int> st{2, 5, [](int& fi, int& se){return fi + se;}, true};
     cout<<st.Query(0,2)<<'\n';
+    st.DebugPrint();
     st.Update(5,1);
     st.DebugPrint();
     cout<<st.Query(0,3)<<'\n';
-    st.UpdateFunction([](int& fi, int &se){return fi * se;});
     st.Update(5,0);
     st.DebugPrint();
     cout<<st.Query(0,3)<<'\n';

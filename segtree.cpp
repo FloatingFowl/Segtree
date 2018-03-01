@@ -21,8 +21,30 @@ SegmentTree<Base>::SegmentTree(std::vector<Base> const &init_values, std::functi
         BuildTreeIterative(init_values);
     }
 
-    DebugPrint();
+    //DebugPrint();
 }
+
+
+template <typename Base>
+SegmentTree<Base>::SegmentTree(Base const &init_value, std::size_t const &len, std::function<Base(Base&, Base&)> bin_func, bool type)
+    : bin_func_(bin_func)
+    , len_(len)
+    , type_(type)
+{
+
+    if (type_ == true)
+    {
+        tree_.resize(GetTreeSize(len_));
+        BuildTreeRecursive(0, len_ - 1, init_value, 0);
+    }
+    else
+    {
+        tree_.resize(len_ * 2);
+        BuildTreeIterative(init_value);
+    }
+    //DebugPrint();
+}
+
 
 
 template <typename Base>
@@ -44,6 +66,24 @@ void SegmentTree<Base>::BuildTreeRecursive(std::size_t l_index, std::size_t r_in
 
 
 template <typename Base>
+void SegmentTree<Base>::BuildTreeRecursive(std::size_t l_index, std::size_t r_index, Base const &init_value, std::size_t tree_index)
+{
+    if (l_index == r_index)
+    {
+        tree_[tree_index] = init_value;
+        return;
+    }
+
+    std::size_t boundary = (l_index + r_index) >> 1;
+    std::size_t next_tree_index = (tree_index << 1) + 1;
+    
+    BuildTreeRecursive(l_index, boundary, init_value, next_tree_index);
+    BuildTreeRecursive(boundary + 1, r_index, init_value, next_tree_index + 1);
+    tree_[tree_index] = bin_func_(tree_[next_tree_index], tree_[next_tree_index + 1]);
+}
+
+
+template <typename Base>
 void SegmentTree<Base>::BuildTreeIterative(std::vector<Base> const &init_values)
 {
     for(size_t i = 0; i < len_; i++)
@@ -55,6 +95,21 @@ void SegmentTree<Base>::BuildTreeIterative(std::vector<Base> const &init_values)
         tree_[i] = bin_func_(tree_[i << 1], tree_[(i << 1) | 1]);
     }
 }
+
+
+template <typename Base>
+void SegmentTree<Base>::BuildTreeIterative(Base const &init_value)
+{
+    for(size_t i = 0; i < len_; i++)
+    {
+        tree_[len_ + i] = init_value;
+    }
+    for(size_t i = len_ - 1; i > 0; i--)
+    {
+        tree_[i] = bin_func_(tree_[i << 1], tree_[(i << 1) | 1]);
+    }
+}
+
 
 
 template <typename Base>
@@ -144,11 +199,10 @@ void SegmentTree<Base>::UpdateIterative(Base const &new_value, std::size_t const
 {
     std::size_t i = index + len_;
     tree_[i] = new_value;
-    i >>= 1;
 
-    while (i > 0)
+    while (i > 1)
     {
-        tree_[i] = bin_func_(tree_[i << 1], tree_[(i << 1) | 1]);
+        tree_[i >> 1] = bin_func_(tree_[i], tree_[i ^ 1]);
         i >>= 1;
     }
 }
@@ -202,10 +256,10 @@ void SegmentTree<Base>::UpdateFunction(std::function<Base(Base&, Base&)> bin_fun
 template <typename Base>
 void SegmentTree<Base>::DebugPrint()
 {
-    //int limit = GetTreeSize(len_);
-    int limit = 2*len_;
-    //for (int i = 0; i < limit; i++){
-    for (int i = 1; i <= limit; i++){
+    int limit = GetTreeSize(len_);
+    //int limit = 2*len_;
+    for (int i = 0; i < limit; i++){
+    //for (int i = 1; i <= limit; i++){
         std::cout<<tree_[i]<<"\t";
     }
     std::cout<<'\n';
