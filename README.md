@@ -7,7 +7,7 @@
   - `(vector of initial values of different type, function pointer or lambda)`
   - `(initial value, function pointer or lambda)`
   - Where the begin and end iterators are provided.
-  - Possible choice of iterative or recursive
+  - ~~Possible choice of iterative or recursive~~
 - ~~`build` function~~
 - ~~`query` function~~
 - ~~`update` function~~
