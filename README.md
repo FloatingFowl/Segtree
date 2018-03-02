@@ -10,6 +10,7 @@ Similarly, compile `performance_testing.cpp` and run it for some performance tes
 - 1) Only queries
 - 2) Only updates
 - 3) Queries and Updates
+
 The operations on the segment tree will equal the number of elements.
 
 *Instructions on how to create the `SegmentTree` object and such will be added here soon.*
@@ -24,6 +25,7 @@ The operations on the segment tree will equal the number of elements.
   - ~~`(vector of initial values of same type, function pointer or lambda)`~~
   - ~~`(initial value, function pointer or lambda)`~~
   - ~~Possible choice of iterative or recursive~~
+  - From begin and end iterators
 - ~~`build` function~~
 - ~~`query` function~~
 - ~~`update` function~~

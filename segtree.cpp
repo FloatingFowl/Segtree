@@ -1,3 +1,7 @@
+#include <cmath>
+#include <iostream>
+#include <stdexcept>
+
 #include "segtree.h"
 
 #ifndef _SEGMENTTREE_CPP_
