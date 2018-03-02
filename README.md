@@ -18,7 +18,7 @@ The operations on the segment tree will equal the number of elements.
 From a `vector<Data>` variable named `vec_tree` which contains the leaf values, and a function pointer / functor / lambda / `std::function` type variable named `binary_function`:
 
 	SegmentTree<Data> sTree{
-    	vec_tree,
+        vec_tree,
         binary_function,
         bool_val
     }
@@ -28,7 +28,7 @@ From a `vector<Data>` variable named `vec_tree` which contains the leaf values, 
 From a `Data` type variable named `init_value` which is the default value of all leaf nodes, and a function pointer / functor / lambda / `std::function` type variable named `binary_function`, and the number of leaves `n_leaves`:
 
 	SegmentTree<Data> sTree{
-    	init_value,
+        init_value,
         n_leaves,
         binary_function,
         bool_val
@@ -39,7 +39,7 @@ From a `Data` type variable named `init_value` which is the default value of all
 To query for the segment value across a range `[l_index, r_index]` of the leaves (zero-indexed):
 
 	sTree.Update(
-    	l_index,
+        l_index,
         r_index
     )
     
@@ -59,7 +59,7 @@ To update the leaf value at an index (zero-indexed) `t_index` of the tree with `
 *Apart from the few mentioned in the code*
 
 - Performance testing (Have to present data)
-- ~~Constructors~~
+- Constructors
   - ~~`(vector of initial values of same type, function pointer or lambda)`~~
   - ~~`(initial value, function pointer or lambda)`~~
   - ~~Possible choice of iterative or recursive~~
