@@ -54,7 +54,9 @@ To update the leaf value at an index (zero-indexed) `t_index` of the tree with `
 
 ---
 
-##### Things to be added:
+##### Possible TODOs:
+
+*Apart from the few mentioned in the code*
 
 - Performance testing (Have to present data)
 - ~~Constructors~~
