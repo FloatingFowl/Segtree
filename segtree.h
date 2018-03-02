@@ -93,22 +93,117 @@ public:
 
 
 private:
+
+    /**
+     * Build the segment tree with given vector for all leaf values
+     * in recursive fashion.
+     *
+     * l_index, r_index : [l_index, r_index] 0-indexed denotes current
+     *                    sub-tree range
+     * init_values      : vector required for the leaf node values
+     * tree_index       : index of the current node of tree_ vector
+     *
+     */
+    void BuildTreeRecursive(std::size_t             l_index, 
+                            std::size_t             r_index, 
+                            std::vector<Base> const &init_values, 
+                            std::size_t             tree_index);
+
+    /**
+     * Build the segment tree with given vector for all leaf values
+     * in recursive fashion.
+     *
+     * l_index, r_index : [l_index, r_index] 0-indexed denotes current
+     *                    sub-tree range
+     * init_values      : vector required for the leaf node values
+     * tree_index       : index of the current node of tree_ vector
+     *
+     * TODO : possible integration of this with above method using
+     * vector of single size
+     *
+     */
+    void BuildTreeRecursive(std::size_t l_index, 
+                            std::size_t r_index, 
+                            Base const  &init_value, 
+                            std::size_t tree_index);
+
+    /**
+     * Builds segment tree with given vector in iterative fashion.
+     *
+     * init_values  : vector for leaf nodes of the tree.
+     *
+     */
+    void BuildTreeIterative(std::vector<Base> const &init_values);
+
+    /**
+     * Builds segment tree with given vector in iterative fashion.
+     *
+     * init_values  : vector for leaf nodes of the tree.
+     *
+     */
+    void BuildTreeIterative(Base const &init_value);
+
+    /**
+     * Queries for the bin_func_ value of all the nodes in the range
+     * [l_qbound, r_qbound] in recursive fashion.
+     *
+     * l_qbound, r_qbound   : [l_qbound, r_qbound] 0-index denotes
+     *                        range of subtree required for processing query
+     * l_index, r_index     : [l_index, r_index] 0-indexed denotes current
+     *                        sub-tree range
+     * tree_index           : index of the current node of tree_ vector
+     *
+     */
+    Base QueryRecursive(std::size_t l_qbound, 
+                        std::size_t r_qbound, 
+                        std::size_t l_index, 
+                        std::size_t r_index, 
+                        std::size_t tree_index);
+
+    /**
+     * Queries for the bin_func_ value of all the nodes in the range
+     * [l_qbound, r_qbound] in iterative fashion.
+     *
+     * l_qbound, r_qbound   : [l_qbound, r_qbound] 0-index denotes
+     *                        range of leaves required for processing query
+     *
+     */
+    Base QueryIterative(std::size_t &l_qbound, 
+                        std::size_t &r_qbound);
+
+    /**
+     * Recursively updates leaf node with given value and applies
+     * change along the tree.
+     *
+     * new_value            : new_value of the leaf node
+     * final_index          : index of the leaf (0-indexed) to update
+     * l_index, r_index     : [l_index, r_index] 0-indexed denotes current
+     *                        sub-tree range
+     * tree_index           : index of the current node of tree_ vector
+     *
+     */
+    void UpdateRecursive(Base const         &new_value,
+                         std::size_t const  &final_index, 
+                         std::size_t        l_index, 
+                         std::size_t        r_index, 
+                         std::size_t        tree_index);
+
+    /**
+     * Iteratively updates leaf node with given value and applies
+     * change along the tree.
+     *
+     * new_value        : new_value of the leaf node
+     * index            : index of the leaf (0-indexed) to update
+     *
+     */
+    void UpdateIterative(Base const         &new_value, 
+                         std::size_t const  &index);
+
     // Private Data Members
-    std::vector<Base>                   tree_;
-    std::function<Base(Base&, Base&)>   bin_func_;
-    std::size_t                         len_; 
-    bool                                type_;
-
-    // Private Member Functions 
-    void    BuildTreeRecursive(std::size_t l_index, std::size_t r_index, std::vector<Base> const &init_values, std::size_t tree_index);
-    void    BuildTreeRecursive(std::size_t l_index, std::size_t r_index, Base const &init_value, std::size_t tree_index);
-    void    BuildTreeIterative(std::vector<Base> const &init_values);
-    void    BuildTreeIterative(Base const &init_value);
-    Base    QueryRecursive(std::size_t l_qbound, std::size_t r_qbound, std::size_t l_index, std::size_t r_index, std::size_t tree_index);
-    Base    QueryIterative(std::size_t &l_qbound, std::size_t &r_qbound);
-    void    UpdateRecursive(Base const &new_value, std::size_t const &final_index, std::size_t l_index, std::size_t r_index, std::size_t tree_index);
-    void    UpdateIterative(Base const &new_value, std::size_t const &index);
-
+    std::vector<Base>                   tree_;      ///< vector that stores tree values
+    std::function<Base(Base&, Base&)>   bin_func_;  ///< function that operates on tree
+    std::size_t                         len_;       ///< number of leaves in tree
+    bool                                type_;      ///< True for recursive, else iterative
 };
 
 #include "segtree.cpp"  //To include template members
