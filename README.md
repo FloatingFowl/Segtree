@@ -13,15 +13,51 @@ Similarly, compile `performance_testing.cpp` and run it for some performance tes
 
 The operations on the segment tree will equal the number of elements.
 
-*Instructions on how to create the `SegmentTree` object and such will be added here soon.*
+###### To create a `SegmentTree` object:
+
+From a `vector<Data>` variable named `vec_tree` which contains the leaf values, and a function pointer / functor / lambda / `std::function` type variable named `binary_function`:
+
+	SegmentTree<Data> sTree{
+    	vec_tree,
+        binary_function,
+        bool_val
+    }
+    
+`bool_val`, if `True`, sets the tree to recursive mode, otherwise to iterative mode. Make sure that `binary_function` is representable of the form `std::function<Data(Data&, Data&)>`.
+
+From a `Data` type variable named `init_value` which is the default value of all leaf nodes, and a function pointer / functor / lambda / `std::function` type variable named `binary_function`, and the number of leaves `n_leaves`:
+
+	SegmentTree<Data> sTree{
+    	init_value,
+        n_leaves,
+        binary_function,
+        bool_val
+    }
+
+###### Querying
+
+To query for the segment value across a range `[l_index, r_index]` of the leaves (zero-indexed):
+
+	sTree.Update(
+    	l_index,
+        r_index
+    )
+    
+###### Updating
+
+To update the leaf value at an index (zero-indexed) `t_index` of the tree with `Data` type variable of name `new_value`:
+
+	sTree.Query(
+        new_value,
+        t_value
+    )
 
 ---
 
 ##### Things to be added:
 
 - Performance testing (Have to present data)
-- Code commentary/annotation
-- ~~`Init` Functions (size later)~~
+- ~~Constructors~~
   - ~~`(vector of initial values of same type, function pointer or lambda)`~~
   - ~~`(initial value, function pointer or lambda)`~~
   - ~~Possible choice of iterative or recursive~~
@@ -41,3 +77,4 @@ The operations on the segment tree will equal the number of elements.
 - `main.cpp` - Basic testing during development
 - `Makefile` - Simple Makefile to use with `make`
 - `performance_testing.cpp` - Contains performance testing for all three types
+

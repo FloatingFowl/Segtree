@@ -7,6 +7,7 @@
 #ifndef _SEGMENTTREE_CPP_
 #define _SEGMENTTREE_CPP_
 
+
 template <typename Base>
 SegmentTree<Base>::SegmentTree(
             std::vector<Base> const             &init_values, 
