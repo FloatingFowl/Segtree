@@ -1,11 +1,11 @@
+#ifndef _SEGMENTTREE_CPP_
+#define _SEGMENTTREE_CPP_
+
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
 
 #include "segtree.h"
-
-#ifndef _SEGMENTTREE_CPP_
-#define _SEGMENTTREE_CPP_
 
 
 template <typename Base>
@@ -21,11 +21,15 @@ SegmentTree<Base>::SegmentTree(
 
     if (type_ == true)
     {
+        // Chosing to store and operate on the segment
+        // tree in a recursive fashion
         tree_.resize(GetTreeSize(len_));
         BuildTreeRecursive(0, len_ - 1, init_values, 0);
     }
     else
     {
+        // Chosing to store and operate on the segment
+        // tree in a iterative fashion
         tree_.resize(len_ * 2);
         BuildTreeIterative(init_values);
     }
@@ -46,11 +50,15 @@ SegmentTree<Base>::SegmentTree(
 
     if (type_ == true)
     {
+        // Chosing to store and operate on the segment
+        // tree in a recursive fashion
         tree_.resize(GetTreeSize(len_));
         BuildTreeRecursive(0, len_ - 1, init_value, 0);
     }
     else
     {
+        // Chosing to store and operate on the segment
+        // tree in a iterative fashion
         tree_.resize(len_ * 2);
         BuildTreeIterative(init_value);
     }
@@ -69,6 +77,8 @@ void SegmentTree<Base>::BuildTreeRecursive(
 
     if (l_index == r_index)
     {
+        // Storing value into leaf node of the tree
+        // from corresponding vector index
         tree_[tree_index] = init_values[l_index];
         return;
     }
@@ -76,8 +86,13 @@ void SegmentTree<Base>::BuildTreeRecursive(
     std::size_t boundary = (l_index + r_index) >> 1;
     std::size_t next_tree_index = (tree_index << 1) + 1;
     
+    // build tree on left branch
     BuildTreeRecursive(l_index, boundary, init_values, next_tree_index);
+    // build tree on right branch
     BuildTreeRecursive(boundary + 1, r_index, init_values, next_tree_index + 1);
+
+    // storing value of the current tree node,
+    // by merging left and right children
     tree_[tree_index] = bin_func_(tree_[next_tree_index], tree_[next_tree_index + 1]);
 }
 
@@ -93,6 +108,8 @@ void SegmentTree<Base>::BuildTreeRecursive(
 
     if (l_index == r_index)
     {
+        // Storing value into leaf node of the tree
+        // from default leaf node value 
         tree_[tree_index] = init_value;
         return;
     }
@@ -100,8 +117,13 @@ void SegmentTree<Base>::BuildTreeRecursive(
     std::size_t boundary = (l_index + r_index) >> 1;
     std::size_t next_tree_index = (tree_index << 1) + 1;
     
+    // build tree on left branch
     BuildTreeRecursive(l_index, boundary, init_value, next_tree_index);
+    // build tree on right branch
     BuildTreeRecursive(boundary + 1, r_index, init_value, next_tree_index + 1);
+
+    // storing value of the current tree node,
+    // by merging left and right children
     tree_[tree_index] = bin_func_(tree_[next_tree_index], tree_[next_tree_index + 1]);
 }
 
@@ -111,13 +133,18 @@ void SegmentTree<Base>::BuildTreeIterative(
             std::vector<Base> const &init_values
 )
 {
-    //declaring leaf values
     for(size_t i = 0; i < len_; i++)
     {
+        // storing the leaf values into the tree
+        // from initializing vector. Stored into the
+        // last nLeaves indices
         tree_[len_ + i] = init_values[i];
     }
     for(size_t i = len_ - 1; i > 0; i--)
     {
+        // getting the value of every tree node
+        // in a reverse order by merging the two children
+        // which have been calculated earlier
         tree_[i] = bin_func_(tree_[i << 1], tree_[(i << 1) | 1]);
     }
 }
@@ -128,13 +155,18 @@ void SegmentTree<Base>::BuildTreeIterative(
             Base const &init_value
 )
 {
-    //declaring leaf values
     for(size_t i = 0; i < len_; i++)
     {
+        // storing the leaf values into the tree
+        // with the given default value. Stored into the
+        // last nLeaves indices
         tree_[len_ + i] = init_value;
     }
     for(size_t i = len_ - 1; i > 0; i--)
     {
+        // getting the value of every tree node
+        // in a reverse order by merging the two children
+        // which have been calculated earlier
         tree_[i] = bin_func_(tree_[i << 1], tree_[(i << 1) | 1]);
     }
 }
@@ -151,6 +183,9 @@ Base SegmentTree<Base>::QueryRecursive(
 {
     if (l_qbound <= l_index && r_index <= r_qbound)
     {
+        // The current subtree of the segment tree
+        // appears completely inside the range of the query. So the total
+        // value stored at the root node of the subtree is returned.
         return tree_[tree_index];
     }
 
@@ -159,14 +194,20 @@ Base SegmentTree<Base>::QueryRecursive(
 
     if (r_qbound <= boundary)
     {
+        // The current query range lies completely in the left subtree, so
+        // the query is returned from the left subtree.
         return QueryRecursive(l_qbound, r_qbound, l_index, boundary, next_tree_index);
     }
     else if (l_qbound > boundary)
     {
+        // The current query range lies completely in the right subtree, so
+        // the query is returned from the right subtree.
         return QueryRecursive(l_qbound, r_qbound, boundary + 1, r_index, next_tree_index + 1);
     }
     else
     {
+        // The query range intersects both children of the current root node,
+        // so the query is sent across to both sub-trees and the result is combined.
         Base l_query = QueryRecursive(l_qbound, boundary, l_index, boundary, next_tree_index);
         Base r_query = QueryRecursive(boundary + 1, r_qbound, boundary + 1, r_index, next_tree_index + 1);
         return bin_func_(l_query, r_query);
@@ -180,11 +221,11 @@ Base SegmentTree<Base>::QueryIterative(
             std::size_t &r_qbound
 )
 {
-    //setting open right bound
+    // setting OPEN right bound
     r_qbound += 1;
 
-    //User Base type has to be initialized with default value
-    //in the default constructor for usage in iterative code.
+    // User Base type has to be initialized with default value
+    // in the default constructor for usage in iterative code.
     Base l_query{};
     Base r_query{};
 
@@ -194,19 +235,26 @@ Base SegmentTree<Base>::QueryIterative(
     {
         if (l_ind & 1)
         {
+            // l_ind is an odd index so its subtree is included
+            // in the range.
             l_query = bin_func_(l_query, tree_[l_ind]);
             l_ind += 1;
         }
         if (r_ind & 1)
         {
+            // r_ind (open end) is odd, so its subtree is not
+            // included, however, r_ind - 1 subtree is.
             r_ind -= 1;
             r_query = bin_func_(tree_[r_ind], r_query);
         }
         
+        // Moving l_ind, r_ind to their respective
+        // parents.
         l_ind >>= 1;
         r_ind >>= 1;
     }
 
+    // returning the query solution
     return bin_func_(l_query, r_query);
 }
 
@@ -222,6 +270,8 @@ void SegmentTree<Base>::UpdateRecursive(
 {
     if (l_index == r_index)
     {
+        // Leaf to be updated reached and updated
+        // with the new value
         tree_[tree_index] = new_value;
         return;
     }
@@ -231,12 +281,19 @@ void SegmentTree<Base>::UpdateRecursive(
 
     if (final_index <= boundary)
     {
+        // Recursively updating on the left subtree if
+        // leaf exists in that subtree.
         UpdateRecursive(new_value, final_index, l_index, boundary, next_tree_index);
     }
     else
     {
+        // Recursively updating on the right subtree if
+        // leaf exists in that subtree.
         UpdateRecursive(new_value, final_index, boundary + 1, r_index, next_tree_index + 1);
     }
+
+    // Updating ancestors of the leaf value updated
+    // with latest values
     tree_[tree_index] = bin_func_(tree_[next_tree_index], tree_[next_tree_index + 1]);
 }
 
@@ -249,11 +306,21 @@ void SegmentTree<Base>::UpdateIterative(
 {
 
     std::size_t i = index + len_;
+
+    // Updating leaf node of tree with new value
     tree_[i] = new_value;
 
     while (i > 1)
     {
+        // Updating the values of each ancestor of
+        // updated leaf node.
+        
+        // if i is even, i^1 is odd and similar if i is odd
+        // updating parent of current node (i >> 1) by merging
+        // siblings stored at i and i^1 indices in tree_ vector.
         tree_[i >> 1] = bin_func_(tree_[i], tree_[i ^ 1]);
+
+        // setting i to parent of current node by diving index by 2
         i >>= 1;
     }
 }
@@ -267,16 +334,20 @@ Base SegmentTree<Base>::Query(
 {
     if (l_qbound < 0 || l_qbound >= len_ || r_qbound < 0 || r_qbound >= len_)
     {
+        // query bounds moving out of segment tree range
         throw std::out_of_range("The indices must be within the range of the segment tree.");
     }
     if (l_qbound > r_qbound)
     {
+        // query left bound greater than query right bound
         throw std::out_of_range("The left index must be smaller than the right index.");
     }
 
     if (type_ == true)
+        // Querying recursively
         return QueryRecursive(l_qbound, r_qbound, 0, len_ - 1, 0);
     else
+        // Querying iteratively
         return QueryIterative(l_qbound, r_qbound);
 }
 
@@ -288,12 +359,15 @@ void SegmentTree<Base>::Update(
 {
     if (index < 0 || index > len_)
     {
+        // update node out of segment tree range
         throw std::out_of_range("The index must be within the range of the segment tree.");
     }
 
     if (type_ == true)
+        // Recursive updating
         UpdateRecursive(new_value, index, 0, len_ - 1, 0);
     else
+        // Iterative updating
         UpdateIterative(new_value, index);
 }
 
@@ -303,6 +377,8 @@ size_t SegmentTree<Base>::GetTreeSize(
             size_t const &len
 )
 {
+    // Returns >= minimum number of nodes required
+    // for storing segment tree with `len` leaves
     return 2 * std::pow(2, std::ceil(std::log2(len))) - 1;
 }
 
@@ -312,6 +388,8 @@ void SegmentTree<Base>::UpdateFunction(
             std::function<Base(Base&, Base&)> bin_func
 )
 {
+    // Updating current segment tree operation /
+    // merge function with new one
     bin_func_ = bin_func;
 }
 

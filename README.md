@@ -60,6 +60,8 @@ sTree.Query(
 )
 ```
 
+*More information on the functions can be found in the header file (`segtree.h`)***
+
 ---
 
 ##### Possible TODOs:
