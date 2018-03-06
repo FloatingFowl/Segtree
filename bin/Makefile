@@ -169,6 +169,7 @@ src/segtree.o: src/segtree.cpp.o
 
 # target to build an object file
 src/segtree.cpp.o:
+	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/segtree.cpp.o
 	$(MAKE) -f CMakeFiles/example1.dir/build.make CMakeFiles/example1.dir/src/segtree.cpp.o
 .PHONY : src/segtree.cpp.o
 
@@ -178,6 +179,7 @@ src/segtree.i: src/segtree.cpp.i
 
 # target to preprocess a source file
 src/segtree.cpp.i:
+	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/segtree.cpp.i
 	$(MAKE) -f CMakeFiles/example1.dir/build.make CMakeFiles/example1.dir/src/segtree.cpp.i
 .PHONY : src/segtree.cpp.i
 
@@ -187,8 +189,36 @@ src/segtree.s: src/segtree.cpp.s
 
 # target to generate assembly for a file
 src/segtree.cpp.s:
+	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/src/segtree.cpp.s
 	$(MAKE) -f CMakeFiles/example1.dir/build.make CMakeFiles/example1.dir/src/segtree.cpp.s
 .PHONY : src/segtree.cpp.s
+
+testing/tests.o: testing/tests.cpp.o
+
+.PHONY : testing/tests.o
+
+# target to build an object file
+testing/tests.cpp.o:
+	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/testing/tests.cpp.o
+.PHONY : testing/tests.cpp.o
+
+testing/tests.i: testing/tests.cpp.i
+
+.PHONY : testing/tests.i
+
+# target to preprocess a source file
+testing/tests.cpp.i:
+	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/testing/tests.cpp.i
+.PHONY : testing/tests.cpp.i
+
+testing/tests.s: testing/tests.cpp.s
+
+.PHONY : testing/tests.s
+
+# target to generate assembly for a file
+testing/tests.cpp.s:
+	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/testing/tests.cpp.s
+.PHONY : testing/tests.cpp.s
 
 # Help Target
 help:
@@ -206,6 +236,9 @@ help:
 	@echo "... src/segtree.o"
 	@echo "... src/segtree.i"
 	@echo "... src/segtree.s"
+	@echo "... testing/tests.o"
+	@echo "... testing/tests.i"
+	@echo "... testing/tests.s"
 .PHONY : help
 
 

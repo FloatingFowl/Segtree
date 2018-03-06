@@ -74,6 +74,7 @@ sTree.Query(
   - ~~`(initial value, function pointer or lambda)`~~
   - ~~Possible choice of iterative or recursive~~
   - From begin and end iterators
+  - For iterative, specifying identity
 - ~~`build` function~~
 - ~~`query` function~~
 - ~~`update` function~~

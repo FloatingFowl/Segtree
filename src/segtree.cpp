@@ -377,6 +377,12 @@ size_t SegmentTree<Base>::GetTreeSize(
             size_t const &len
 )
 {
+    if (len == 0)
+    {
+        // No leaves imply no nodes in the segment tree
+        return 0;
+    }
+
     // Returns >= minimum number of nodes required
     // for storing segment tree with `len` leaves
     return 2 * std::pow(2, std::ceil(std::log2(len))) - 1;

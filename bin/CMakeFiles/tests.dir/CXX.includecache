@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/segtree.h
+vector
+-
+functional
+-
+segtree.cpp
+../inc/segtree.cpp
+
+../src/segtree.cpp
+cmath
+-
+iostream
+-
+stdexcept
+-
+segtree.h
+../src/segtree.h
+
+/Users/Mohsin/Repos/Segtree/src/segtree.cpp
+cmath
+-
+iostream
+-
+stdexcept
+-
+segtree.h
+/Users/Mohsin/Repos/Segtree/src/segtree.h
+
+/Users/Mohsin/Repos/Segtree/testing/tests.cpp
+iostream
+-
+cstdlib
+-
+segtree.h
+/Users/Mohsin/Repos/Segtree/testing/segtree.h
+
