@@ -1,0 +1,6 @@
+cmake_minimum_required (VERSION 2.6)
+set (CMAKE_CXX_STANDARD 11)
+project (MyProject)
+include_directories(inc src)
+add_executable(example1 src/segtree.cpp examples/main.cpp)
+add_executable(tests src/segtree.cpp testing/tests.cpp)
