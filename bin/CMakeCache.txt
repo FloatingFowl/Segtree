@@ -128,7 +128,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 CMAKE_OSX_SYSROOT:STRING=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=MyProject
+CMAKE_PROJECT_NAME:STATIC=SegTree
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
@@ -184,6 +184,12 @@ MyProject_BINARY_DIR:STATIC=/Users/Mohsin/Repos/Segtree/bin
 
 //Value Computed by CMake
 MyProject_SOURCE_DIR:STATIC=/Users/Mohsin/Repos/Segtree
+
+//Value Computed by CMake
+SegTree_BINARY_DIR:STATIC=/Users/Mohsin/Repos/Segtree/bin
+
+//Value Computed by CMake
+SegTree_SOURCE_DIR:STATIC=/Users/Mohsin/Repos/Segtree
 
 
 ########################
