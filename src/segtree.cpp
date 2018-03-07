@@ -310,15 +310,17 @@ void SegmentTree<Base>::UpdateIterative(
     // Updating leaf node of tree with new value
     tree_[i] = new_value;
 
-    while (i > 1)
+    i >>= 1;
+
+    while (i != 0)
     {
         // Updating the values of each ancestor of
         // updated leaf node.
         
         // if i is even, i^1 is odd and similar if i is odd
-        // updating parent of current node (i >> 1) by merging
-        // siblings stored at i and i^1 indices in tree_ vector.
-        tree_[i >> 1] = bin_func_(tree_[i], tree_[i ^ 1]);
+        // updating parent of current node (i) by merging
+        // siblings stored at i<<1 and (i<<1)^1 indices in tree_ vector.
+        tree_[i] = bin_func_(tree_[i<<1], tree_[(i<<1) ^ 1]);
 
         // setting i to parent of current node by diving index by 2
         i >>= 1;
