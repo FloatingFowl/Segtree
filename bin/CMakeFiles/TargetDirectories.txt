@@ -1,4 +1,0 @@
-/Users/Mohsin/Repos/Segtree/bin/CMakeFiles/rebuild_cache.dir
-/Users/Mohsin/Repos/Segtree/bin/CMakeFiles/edit_cache.dir
-/Users/Mohsin/Repos/Segtree/bin/CMakeFiles/tests.dir
-/Users/Mohsin/Repos/Segtree/bin/CMakeFiles/example1.dir
