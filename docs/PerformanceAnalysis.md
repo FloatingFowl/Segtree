@@ -11,9 +11,9 @@
 | 100000    | 6.6271949999999980 | 9.949820000000004| NA|
 
 The above data plotted for Iterative (green), Recursive (red) and Bruteforce (blue)
-![Alt text](./data/1_All.png "Fig1")
+![Fig1](./data/1_All.png "Fig1")
 
 Same plot but zoomed in, notice the bruteforce timings rising steeply on the left.
-![Alt text](./data/1_All.png "Fig")
+![Fig2](./data/1_AllZoom.png "Fig2")
 
 For both updates as well as queries, iterative remains faster practically than the same recursive segment tree.
