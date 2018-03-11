@@ -52,6 +52,8 @@ vector<int> init_val;
 
 int main(int argc, char *argv[])
 {
+    std::cout<<fixed;
+    std::cout.precision(10);
     if (argc != 3)
     {
         cout<<"Usage: performance_testing <Process Option> <Number of Elements>\n";
@@ -65,7 +67,7 @@ int main(int argc, char *argv[])
 
     if (strcmp(argv[1], "1") == 0)
     {
-        for (int i = 0; i < limit; i++)
+        for (int i = 0; i < 100000; i++)
         {
             int l = rand()%limit;
             int r = l + rand()%(limit - l);
@@ -74,16 +76,16 @@ int main(int argc, char *argv[])
     }
     else if (strcmp(argv[1], "2") == 0)
     {
-        for (int i = 0; i < limit; i++)
+        for (int i = 0; i < 100000; i++)
         {
             int l = rand()%limit;
-            int val = rand()%100000;
+            int val = rand()%5000;
             queries.push_back(make_tuple(1, l, val));
         }
     }
     else
     {
-        for (int i = 0; i < limit; i++)
+        for (int i = 0; i < 100000; i++)
         {
             int x = rand()%2;
             if (x == 0){
@@ -99,6 +101,7 @@ int main(int argc, char *argv[])
         }
     }
 
+    init_val.clear();
     for (int i=0; i < limit; i++)
     {
         int val = rand()%500;
@@ -109,7 +112,7 @@ int main(int argc, char *argv[])
         timestamp_t t0 = get_timestamp();
         //Segment Tree Iterative
         SegmentTree<int> st{init_val, [](int& f, int& s){return f+s;}, false};  
-        for (int i = 0; i < limit; i++)
+        for (int i = 0; i < 100000; i++)
         {
             if(get<0>(queries[i]) == 0){
                 auto ans = st.Query(get<1>(queries[i]), get<2>(queries[i]));
@@ -126,7 +129,7 @@ int main(int argc, char *argv[])
         timestamp_t t0 = get_timestamp();
         //Segment Tree Recursive
         SegmentTree<int> st{init_val, [](int& f, int& s){return f+s;}, true};  
-        for (int i = 0; i < limit; i++)
+        for (int i = 0; i < 100000; i++)
         {
             if(get<0>(queries[i]) == 0){
                 auto ans = st.Query(get<1>(queries[i]), get<2>(queries[i]));
@@ -143,7 +146,7 @@ int main(int argc, char *argv[])
         timestamp_t t0 = get_timestamp();
         //Segment Tree Recursive
         BruteForce<int> st{init_val, [](int& f, int& s){return f+s;}};  
-        for (int i = 0; i < limit; i++)
+        for (int i = 0; i < 100000; i++)
         {
             if(get<0>(queries[i]) == 0){
                 auto ans = st.Query(get<1>(queries[i]), get<2>(queries[i]));
