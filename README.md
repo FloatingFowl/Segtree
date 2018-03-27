@@ -8,12 +8,12 @@ For running the `main.cpp` example program in `examples/`, run `cmake ..` in the
 
 For running the tests described in `tests/`, run `cmake ..` and `make` as above in the `bin/` directory. The executable `tests` is then created in the same directory.
 
-**The Performance Testing part will be updated soon**. Similarly, compile `performance_testing.cpp` and run it for some performance testing. Usage is as `./performanceTesting <option> <number of elements>` where `<option>` may be 
+Similarly, for performance testing, do the same as above and run `./performancetests <option> <number of elements>` where `<option>` may be 
 - 1) Only queries
 - 2) Only updates
 - 3) Queries and Updates
 
-The operations on the segment tree will equal the number of elements. **The above performance testing mini-section will soon be updated with the current codebase**.
+The operations on the segment tree will equal 10^5.
 
 ---
 
